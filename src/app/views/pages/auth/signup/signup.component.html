@@ -1,0 +1,117 @@
+<!--begin::Body-->
+<div class="kt-login__body">
+	<!--begin::Signin-->
+	<div class="kt-login__form">
+		<div class="kt-login__title">
+			<h3>User Setup</h3>
+		</div>
+
+		<kt-auth-notice></kt-auth-notice>
+
+		<form class="kt-login__form kt-form" [formGroup]="signupForm">
+			<div class="form-group">
+				<mat-form-field>
+					<mat-label>First name</mat-label>
+					<input matInput type="text" placeholder="First name"  autocomplete="off" formControlName="firstName" 	(blur)="loadValidationError()" />
+					<mat-error *ngIf="signupForm.get('firstName').errors && signupForm.get('firstName').touched">
+						{{ formErrors.firstName }}
+					</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="form-group">
+				<mat-form-field>
+					<mat-label>Last name</mat-label>
+					<input matInput type="email" placeholder="Last name"  autocomplete="off" formControlName="lastName" 	(blur)="loadValidationError()" />
+					<mat-error *ngIf="signupForm.get('lastName').errors && signupForm.get('lastName').touched">
+						{{ formErrors.lastName }}
+					</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="form-group">
+						<mat-form-field>
+							<mat-label>Email</mat-label>
+							<input matInput type="text" placeholder="Email"  autocomplete="off" formControlName="email"
+								(blur)="loadValidationError()" />
+							<mat-error *ngIf="signupForm.get('email').errors && signupForm.get('email').touched">
+								{{ formErrors.email }}
+							</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<mat-form-field>
+							<mat-label>User ID</mat-label>
+							<input matInput type="text" placeholder="User Id"  autocomplete="off" formControlName="username"
+								(blur)="loadValidationError()" />
+							<mat-error *ngIf="signupForm.get('username').errors && signupForm.get('username').touched">
+								{{ formErrors.username }}
+							</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<mat-form-field>
+					<mat-label>Phone Number</mat-label>
+					<ngx-mat-intl-tel-input [enableSearch]="true"   autocomplete="off" formControlName="phoneNumber" name="phoneNumber" 	(blur)="loadValidationError()">
+					</ngx-mat-intl-tel-input>
+					<mat-error *ngIf="signupForm.get('phoneNumber').errors && signupForm.get('phoneNumber').touched">
+						{{ formErrors.phoneNumber }}
+					</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="form-group">
+						<mat-form-field>
+							<mat-label>Password</mat-label>
+							<input matInput type="password" placeholder="Password"  autocomplete="off" formControlName="password" 	(blur)="loadValidationError()" />
+							<mat-error *ngIf="signupForm.get('password').errors && signupForm.get('password').touched">
+								{{ formErrors.password }}
+							</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<mat-form-field>
+							<mat-label>Confirm Password</mat-label>
+							<input matInput type="password" placeholder="cPassword"  autocomplete="off" formControlName="cpassword" 	(blur)="loadValidationError()" />
+							<mat-error *ngIf="signupForm.get('cpassword').errors && signupForm.get('cpassword').touched">
+								{{ formErrors.cpassword }}
+							</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+			<div class="kt-login__actions">
+				<a href="javascript:;" routerLink="/auth/forgot-password" class="kt-link kt-login__link-forgot">
+					Forgot Password
+				</a>
+				<button (click)="submit()" id="kt_login_signin_submit"
+					class="btn btn-primary btn-elevate kt-login__btn-primary"
+					[ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">{{ 'AUTH.GENERAL.SUBMIT_BUTTON' | translate }}</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+<!-- 
+<li _ngcontent-uop-c7="" data-placement="right" class="ng-star-inserted kt-menu__item kt-menu__item--active kt-menu__item--here" ng-reflect-ng-class="kt-menu__item kt-menu__item--a" ng-reflect-placement="right" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+	<a _ngcontent-uop-c7="" class="kt-menu__link kt-menu__toggle ng-star-inserted" ng-reflect-router-link="/user/dashboard" href="/user/dashboard">
+		<i _ngcontent-uop-c7="" class="kt-menu__link-icon flaticon-home-1 ng-star-inserted" ng-reflect-klass="kt-menu__link-icon" ng-reflect-ng-class="flaticon-home-1"></i>
+		 <span _ngcontent-uop-c7="" class="kt-menu__link-text ng-star-inserted">Home</span></a></li>
+
+
+
+		 <li _ngcontent-uop-c7="" data-placement="right" class="kt-menu__item kt-menu__item--submenu ng-star-inserted kt-menu__item--open" ng-reflect-ng-class="kt-menu__item kt-menu__item--s" ng-reflect-placement="right" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+			 <a _ngcontent-uop-c7="" class="kt-menu__link kt-menu__toggle ng-star-inserted" ng-reflect-router-link="/user/users" href="/user/users">
+				<i _ngcontent-uop-c7="" class="kt-menu__link-icon flaticon-user-settings ng-star-inserted" ng-reflect-klass="kt-menu__link-icon" ng-reflect-ng-class="flaticon-user-settings"></i>
+				<span _ngcontent-uop-c7="" class="kt-menu__link-text ng-star-inserted">User Management</span></a>
+				<div _ngcontent-uop-c7="" class="kt-menu__submenu ng-star-inserted" kt-hidden-height="0" style=""><span _ngcontent-uop-c7="" class="kt-menu__arrow"></span><ul _ngcontent-uop-c7="" class="kt-menu__subnav ng-star-inserted"></ul>
+				</div></li> -->

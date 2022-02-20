@@ -1,0 +1,242 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~material-design-icons/iconfont/material-icons.css";
+@import "~highlight.js/styles/googlecode.css";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~@ng-select/ng-select/themes/material.theme.css";
+
+
+// header base skins
+.kt-header-base-light {
+    @import "assets/sass/global/layout/header/skins/base/light.scss";
+}
+
+.kt-header-base-dark {
+    @import "assets/sass/global/layout/header/skins/base/dark.scss";
+}
+
+// header menu skins
+.kt-header-menu-light {
+    @import "assets/sass/global/layout/header/skins/menu/light.scss";
+}
+
+.kt-header-menu-dark {
+    @import "assets/sass/global/layout/header/skins/menu/dark.scss";
+}
+
+// brand skins
+.kt-brand-dark {
+    @import "assets/sass/global/layout/brand/skins/dark.scss";
+}
+
+.kt-brand-light {
+    @import "assets/sass/global/layout/brand/skins/light.scss";
+}
+
+// aside skins
+.kt-aside-dark {
+    @import "assets/sass/global/layout/aside/skins/dark.scss";
+}
+
+.kt-aside-light {
+    @import "assets/sass/global/layout/aside/skins/light.scss";
+}
+
+// hide bootstrap dropdown arrow globally
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.mat-table__wrapper--dashboard .mat-table {
+    min-width: 600px !important;
+    width: 100% !important;
+}
+
+.position-static {
+    position: static;
+}
+
+#zmmtg-root {
+    display: none;
+}
+
+html,
+body {
+    overflow: unset !important;
+    font-size: 13px !important;
+}
+
+.mat-cell {
+    font-size: 13px !important;
+}
+
+// .mat-header-cell {
+
+// 	justify-content: center;
+// 	}
+.cdk-overlay-container {
+    z-index: 999999 !important;
+}
+
+.kt-loading-bar,
+//progress bar color
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow,
+//change arrow color
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled),
+//change color
+.mat-form-field.mat-focused.search_input_filed .mat-form-field-label,
+.mat-form-field.mat-focused .mat-form-field-label,
+.kt-aside-dark .kt-aside-menu .kt-menu__nav>.kt-menu__item.kt-menu__item--open>.kt-menu__heading .kt-menu__link-icon //  .kt-aside-dark .kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--open > .kt-menu__link .kt-menu__link-icon
+
+    {
+    // color: blue;
+    color: #3699ff !important;
+}
+
+
+
+.mat-icon-button.mat-warn,
+.mat-error {
+    color: #FF2020 !important
+}
+
+.mat-flat-button.mat-warn,
+.mat-raised-button.mat-warn,
+.mat-fab.mat-warn,
+.mat-mini-fab.mat-warn,
+.alert.alert-danger,
+.kt-mat-alert.kt-mat-alert--warn {
+    background: #FF2020 !important;
+
+}
+
+
+.mat-input-element {
+    caret-color: #3699ff !important;
+    ;
+}
+
+
+.kt-aside-dark .kt-aside .ps>.ps__rail-y>.ps__thumb-y,
+// .kt-aside-dark .kt-aside .ps > .ps__rail-y,//side menu scroll color
+.mat-raised-button.mat-primary,
+.mat-form-field.mat-focused .mat-form-field-ripple,
+.search_input_filed.mat-form-field.mat-focused .mat-form-field-ripple .mat-form-field.mat-focused .mat-form-field-ripple {
+    background-color: #3699ff !important;
+}
+
+/*ASIDE MENU*/
+
+.kt-aside-dark .kt-aside-menu {
+    background-color: #708090 !important;
+    // background-color: #3699ff !important;
+}
+
+.colapse_text,
+.kt-aside-dark .kt-aside-menu .kt-menu__nav>.kt-menu__item>.kt-menu__link .kt-menu__link-text,
+.kt-aside-dark .kt-aside-menu .kt-menu__nav>.kt-menu__item .kt-menu__submenu .kt-menu__item>.kt-menu__link .kt-menu__link-text {
+    color: #FFF !important;
+}
+
+
+
+.kt-badge.kt-badge--primary,
+.kt-wizard-v4 .kt-wizard-v4__nav .kt-wizard-v4__nav-items .kt-wizard-v4__nav-item[data-ktwizard-state=current] .kt-wizard-v4__nav-body .kt-wizard-v4__nav-number {
+    background-color: #3699ff !important;
+    color: #FFF !important;
+}
+
+.kt-scrolltop {
+    background: #3699ff !important;
+}
+
+.edit_icon,
+.update_status,
+.mat-button.mat-primary,
+.kt-wizard-v4 .kt-wizard-v4__nav .kt-wizard-v4__nav-items .kt-wizard-v4__nav-item .kt-wizard-v4__nav-body .kt-wizard-v4__nav-number,
+.kt-wizard-v4 .kt-wizard-v4__nav .kt-wizard-v4__nav-items .kt-wizard-v4__nav-item[data-ktwizard-state=current] .kt-wizard-v4__nav-body .kt-wizard-v4__nav-label .kt-wizard-v4__nav-label-title // .kt-aside-dark .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__heading .kt-menu__link-icon, .kt-aside-dark .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-icon ,.kt-aside-dark .kt-aside .kt-aside-menu > .kt-menu__nav .kt-menu__item > .kt-menu__link:not(.kt-menu__link--active):not(.kt-menu__link--here):not(.kt-menu__link--hover) [class*=" flaticon2-"],
+
+// .kt-aside-dark .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__heading .kt-menu__link-icon, .kt-aside-dark .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item > .kt-menu__link .kt-menu__link-icon
+    {
+    color: #3699ff !important;
+}
+
+
+.kt-aside-dark .kt-aside-menu .kt-menu__nav>.kt-menu__item>.kt-menu__heading .kt-menu__link-icon,
+.kt-aside-dark .kt-aside-menu .kt-menu__nav>.kt-menu__item>.kt-menu__link .kt-menu__link-icon,
+.kt-aside-dark .kt-aside .kt-aside-menu>.kt-menu__nav .kt-menu__item>.kt-menu__link:not(.kt-menu__link--active):not(.kt-menu__link--here):not(.kt-menu__link--hover) [class*=" flaticon2-"],
+.kt-aside-dark .kt-aside-menu .kt-menu__nav>.kt-menu__item .kt-menu__submenu .kt-menu__item>.kt-menu__heading .kt-menu__link-icon,
+.kt-aside-dark .kt-aside-menu .kt-menu__nav>.kt-menu__item .kt-menu__submenu .kt-menu__item>.kt-menu__link .kt-menu__link-icon {
+    color: #fff !important
+}
+
+
+
+
+
+// .btn.btn-primary.focus:not(.btn-text), .btn.btn-primary:focus:not(.btn-text), 
+.btn.btn-primary:hover,
+.kt-scrolltop:hover {
+    //:not(.btn-text):not(:disabled):not(.disabled) {
+    color: #fff;
+    background-color: #007eff;
+    border-color: #007eff;
+}
+
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    color: #fff !important;
+    background-color: #3699ff !important;
+}
+
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+    color: #fff !important;
+    background-color: #3699ff !important;
+}
+
+
+
+// .mat-checkbox.mat-accent.mat-checkbox-checked{
+
+// }
+.form-control:focus {
+    border-color: #3699ff !important;
+}
+
+// .kt-aside-dark .kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--here > .kt-menu__heading, .kt-aside-dark .kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--here > .kt-menu__link,
+// .kt-aside-dark .kt-aside-menu .kt-menu__nav > .kt-menu__item .kt-menu__submenu .kt-menu__item.kt-menu__item--active > .kt-menu__heading, 
+// .kt-aside-dark .kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--open > .kt-menu__link .kt-menu__link-icon ,
+// .kt-aside-dark .kt-aside-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--open > .kt-menu__link ,
+
+.kt-aside-dark .kt-aside-menu .kt-menu__nav>.kt-menu__item.kt-menu__item--open>.kt-menu__link,
+.kt-aside-dark .kt-aside-menu .kt-menu__nav>.kt-menu__item:not(.kt-menu__item--parent):not(.kt-menu__item--open):not(.kt-menu__item--here):not(.kt-menu__item--active):hover>.kt-menu__link,
+//menu hover
+.kt-aside-dark .kt-aside-menu .kt-menu__nav>.kt-menu__item .kt-menu__submenu .kt-menu__item:not(.kt-menu__item--parent):not(.kt-menu__item--open):not(.kt-menu__item--here):not(.kt-menu__item--active):hover>.kt-menu__link,
+//submmenu hover
+.kt-aside-dark .kt-aside-menu .kt-menu__nav>.kt-menu__item .kt-menu__submenu .kt-menu__item.kt-menu__item--open>.kt-menu__link,
+// submmenu2 hover
+.kt-aside-dark .kt-aside-menu .kt-menu__nav>.kt-menu__item.kt-menu__item--here>.kt-menu__link,
+.kt-aside-dark .kt-aside-menu .kt-menu__nav>.kt-menu__item .kt-menu__submenu .kt-menu__item.kt-menu__item--active>.kt-menu__link {
+    background-color: #3699ff;
+
+}
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+    stroke: #3699ff !important;
+}
+
+.mat-checkbox-inner-container {
+    height: 15px !important;
+    width: 15px !important;
+}
+
+.ng-select.ng-select-focused .ng-select-container:after {
+    border-color: #3699ff !important;
+}
+
+.mat-button-focus-overlay {
+    background-color: transparent !important;
+}

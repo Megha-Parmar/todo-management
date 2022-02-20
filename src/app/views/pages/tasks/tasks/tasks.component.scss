@@ -1,0 +1,33 @@
+.task-date-div {
+    width: 100%;
+    .field{
+        width: 100%;
+    }
+}
+
+
+
+.mat-column-srNo {
+    flex: 0 0 10%;
+}
+
+.mat-column-uniqueId {
+    flex: 0 0 12%;
+}
+
+.mat-column-taskName {
+    text-align: justify;
+    // flex: 0 0 40%;
+}
+
+.mat-column-action {
+    flex: 0 0 15%;
+}
+
+.mat-column-status {
+    flex: 0 0 10%;
+}
+
+.mat-column-taskDate {
+    flex: 0 0 15%;
+}

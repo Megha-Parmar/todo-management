@@ -1,0 +1,211 @@
+<kt-portlet>
+    <kt-portlet-header title="{{ 'TODO.MAIN_TITLE' | translate }}" [class]="'kt-portlet__head--lg'">
+        <ng-container ktPortletTools>
+            <kt-auth-notice></kt-auth-notice>
+            <button *ngIf="cService.isUser()" (click)="openModal(TaskModel)" mat-raised-button color="primary"
+                matTooltip="{{ 'TODO.ADD_TODO_LABEL' | translate }}">{{ 'TODO.ADD_TODO_LABEL' | translate }}
+            </button>
+        </ng-container>
+    </kt-portlet-header>
+
+    <div class="body">
+
+        <div class="kt-form kt-margin-30">
+            <div class="kt-form__filtration">
+                <div class="row align-items-center">
+                    <div class="col-md-3 kt-margin-bottom-10-mobile">
+                        <mat-form-field class="mat-form-field-fluid search_input_filed">
+                            <input matInput [(ngModel)]="filter" (keyup)="applyFilter($event.target.value)"
+                                placeholder="{{ 'TODO.SEARCH' | translate }}">
+                            <mat-hint align="start">
+                                <strong>{{ 'TODO.SEARCH' | translate }}</strong> {{ 'TODO.SEARCH_HINT' | translate }}
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="mat-table__wrapper">
+            <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort"
+                matSortActive="id" matSortDirection="asc" matSortDisableClear>
+
+                <ng-container matColumnDef="srNo">
+                    <mat-header-cell *matHeaderCellDef>{{ 'TODO.TODO_LIST.TODO_LIST_HEADER_LABELS.SR_NO' | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let task; let i = index;"> {{(i+1) + (pageIndex * 10)}} </mat-cell>
+                </ng-container>
+
+
+                <ng-container matColumnDef="taskName">
+                    <mat-header-cell *matHeaderCellDef>{{ 'TODO.TODO_LIST.TODO_LIST_HEADER_LABELS.TASK_NAME' | translate
+                        }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let task">{{ task.taskName }}</mat-cell>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="taskDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{
+                        'TODO.TODO_LIST.TODO_LIST_HEADER_LABELS.TODO_DATE' |
+                        translate }}</mat-header-cell>
+                    <mat-cell *matCellDef="let task">{{ task.taskDate |date:'dd/MM/yyyy' }}</mat-cell>
+                </ng-container>
+
+
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef>{{ 'TODO.TODO_LIST.TODO_LIST_HEADER_LABELS.STATUS' | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let task">
+                        <span *ngIf="task.status.name == 'ACTIVE'"
+                            class="kt-badge kt-badge--inline kt-badge--pill kt-badge--success kt-badge--wide">{{
+                            'TODO.TODO_LIST.STATUS.ACTIVE' | translate }}</span>
+                        <span *ngIf="task.status.name == 'DEACTIVE'"
+                            class="kt-badge kt-badge--inline kt-badge--pill kt-badge-- kt-badge--wide">{{
+                            'TODO.TODO_LIST.STATUS.INACTIVE' | translate }}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef>{{ 'TODO.TODO_LIST.TODO_LIST_HEADER_LABELS.ACTION' | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let task">
+
+                        <button *ngIf="task.status.name == 'ACTIVE'"
+                            (click)="deactiveTask(task.id, 'DEACTIVE', 'deactivate')" mat-icon-button color="primary"
+                            matTooltip="{{ 'TODO.TODO_LIST.ACTIONS_TOOLTIP.DEACTIVATE' | translate }}">
+                            <mat-icon class="update_status">power_settings_new</mat-icon>
+                        </button>
+
+                        <button *ngIf="task.status.name == 'DEACTIVE'" (click)="updateStatus(task.id, 'ACTIVE')"
+                            mat-icon-button color="primary"
+                            matTooltip="{{ 'TODO.TODO_LIST.ACTIONS_TOOLTIP.ACTIVATE' | translate }}">
+                            <mat-icon class="update_status">done</mat-icon>
+                        </button>
+
+                        <button mat-icon-button color="warn"
+                            matTooltip="{{ 'TODO.TODO_LIST.ACTIONS_TOOLTIP.DELETE_TODO' | translate }}" type="button"
+                            (click)="deleteTask(task, 'DELETED', 'deleted')">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+
+                        <button mat-icon-button [matMenuTriggerFor]="menu"
+                            matTooltip="{{ 'TODO.TODO_LIST.ACTIONS_TOOLTIP.MORE_ACTIONS.MAIN_TITLE' | translate }}"
+                            *ngIf="cService.isUser()">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+
+                            <button mat-menu-item (click)="editDetails(task.id, TaskModel)">
+                                <mat-icon class="edit_icon">create</mat-icon>
+                                <span>{{ 'TODO.TODO_LIST.ACTIONS_TOOLTIP.MORE_ACTIONS.EDIT_INFO' | translate }}</span>
+                            </button>
+
+                        </mat-menu>
+
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+
+            <div class="mat-table__message" *ngIf="loadingSubject | async">{{ 'TODO.TODO_LIST.DATA_LOADING_MESSAGE' |
+                translate }}</div>
+            <div class="mat-table__message"
+                *ngIf="(dataSource.data.length === 0 || dataSource.filteredData.length === 0) && (loadingSubject | async) === false">
+                {{ 'TODO.TODO_LIST.NO_DATA_FOUND' | translate }}</div>
+        </div>
+
+        <div class="mat-table__bottom">
+            <mat-spinner [diameter]="20" *ngIf="showLoader$ | async"></mat-spinner>
+            <mat-paginator [hidePageSize]="true" [pageIndex]="pageIndex" [pageSize]="limit"
+                [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="false" [length]="totalData" #matPaginator
+                (page)="onPaginationChange($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</kt-portlet>
+<div class="item" *ngFor="let user of userslist | async">
+    <div>{{ user|json }}</div>
+    <!-- <div>{{ user.age }}</div>
+    <div>{{ user.address }}</div>
+    <div>{{ user.email }}</div> -->
+    <div><a href="javascript:void(0);" (click)="deleteUser(user.id)">DELETE</a></div>
+</div>
+<ng-template #TaskModel let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">{{ formTitle }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="example-form" [formGroup]="taskForm">
+
+
+            <div class="form-group">
+                <label>{{ 'TODO.ADD_TODO.LABELS.TODO_NAME' | translate }}</label>
+                <input type="hidden" class="form-control" autocomplete="off" formControlName="id" name="id">
+                <div class="input-group mb-1">
+                    <input type="text" (change)="changeTaskName($event)" class="form-control" autocomplete="off"
+                        formControlName="taskName" name="taskName"
+                        placeholder="{{ 'TODO.ADD_TODO.LABELS.TODO_NAME' | translate }}">
+                </div>
+                <mat-error *ngIf="taskForm.get('taskName').errors && taskForm.get('taskName').touched">
+
+                    <span *ngIf="taskForm.get('taskName').errors?.required">
+                        {{ 'TODO.ADD_TODO.ERROR_MESSAGE.REQUIRED_TASK_NAME' | translate }}
+                    </span>
+                </mat-error>
+            </div>
+            <div class="form-group">
+                <label>{{ 'TODO.ADD_TODO.LABELS.STATUS' | translate }}</label>
+                <div class="input-group mb-1">
+                    <select class="form-control" name="role" autocomplete="off" formControlName="status">
+                        <option value="null" disabled>{{ 'TODO.ADD_TODO.ERROR_MESSAGE.STATUS_SELECT' | translate }}
+                        </option>
+                        <option *ngFor="let ts of taskStatusList" [value]="ts.id"> {{ ts.value }} </option>
+                    </select>
+                </div>
+                <mat-error *ngIf="taskForm.get('status').errors && taskForm.get('status').touched">
+
+                    <span *ngIf="taskForm.get('status').errors?.required">
+                        {{ 'TODO.ADD_TODO.ERROR_MESSAGE.REQUIRED_STATUS' | translate }}
+                    </span>
+                </mat-error>
+            </div>
+
+            <div class="form-group">
+                <label>{{ 'TODO.ADD_TODO.LABELS.TODO_DATE' | translate }}</label>
+                <div class="input-group mb-1 task-date-div">
+                    <mat-form-field class="field">
+                        <input matInput [matDatepicker]="picker" formControlName="taskDate" placeholder="Task Date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+
+
+                </div>
+                <mat-error *ngIf="taskForm.get('taskDate').errors && taskForm.get('taskDate').touched">
+
+                    <span *ngIf="taskForm.get('taskDate').errors?.required">
+                        {{ 'TODO.ADD_TODO.ERROR_MESSAGE.REQUIRED_TODO_DATE' | translate }}
+                    </span>
+                </mat-error>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{ 'TODO.ADD_TODO.BUTTONS.CLOSE' |
+            translate }}</button>
+        <button type="button" (click)="submit()" class="btn btn-primary">
+            <div *ngIf="!isInEditMode;else updateFlag">{{ 'TODO.ADD_TODO.BUTTONS.SAVE' | translate }}</div>
+            <ng-template #updateFlag>{{ 'TODO.ADD_TODO.BUTTONS.UPDATE' | translate }}</ng-template>
+        </button>
+    </div>
+</ng-template>
